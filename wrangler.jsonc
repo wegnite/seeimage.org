@@ -65,7 +65,11 @@
    * Environment Variables
    * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
    */
-  "vars": {},
+  "vars": {
+    // Used by src/lib/urls/getBaseUrl() to build absolute URLs at runtime
+    // Do NOT include a trailing slash
+    "NEXT_PUBLIC_BASE_URL": "https://seeimage.org"
+  },
   /**
    * Note: Use secrets to store sensitive data.
    * https://developers.cloudflare.com/workers/configuration/secrets/

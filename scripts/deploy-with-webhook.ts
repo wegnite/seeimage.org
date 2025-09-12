@@ -18,7 +18,15 @@ function getGitInfo() {
   }
 }
 
+function shouldNotify() {
+  // Only notify when explicitly enabled to avoid spamming during normal CLI usage
+  return process.env.DEPLOY_NOTIFY === 'true';
+}
+
 async function sendFeishu(status: '成功' | '失败', phase: Phase, startedAt: number, code?: number, extraMessage?: string) {
+  if (!shouldNotify()) {
+    return;
+  }
   const webhook = process.env.FEISHU_WEBHOOK_URL
   if (!webhook) {
     console.warn('[feishu webhook] FEISHU_WEBHOOK_URL not set; skip notify')

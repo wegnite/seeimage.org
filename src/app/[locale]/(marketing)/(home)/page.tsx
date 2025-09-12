@@ -61,32 +61,20 @@ export default async function HomePage(props: HomePageProps) {
           <SeedreamToolSection />
         </section>
 
-        {/* What / Why / How 文本块，提升关键词密度 */}
+        {/* What / Why / How 文本块（i18n） */}
         <section className="container mx-auto px-4 pb-8 md:pb-12">
           <div className="grid gap-8 md:grid-cols-3">
             <div>
-              <h2 className="text-xl font-semibold">What is Seedream 4.0?</h2>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Seedream 4.0 is a production‑grade AI image generator. With Seedream 4.0 you can create high‑quality
-                visuals via text‑to‑image and image‑to‑image. Seedream 4.0 supports style presets, seeds, guidance and
-                2x/4x upscaling to deliver professional results.
-              </p>
+              <h2 className="text-xl font-semibold">{t('sections.what.title')}</h2>
+              <p className="mt-2 text-sm text-muted-foreground">{t('sections.what.body')}</p>
             </div>
             <div>
-              <h2 className="text-xl font-semibold">Why Choose Seedream 4.0?</h2>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Seedream 4.0 focuses on fidelity, control and speed. For marketing banners, product shots and concept
-                art, Seedream 4.0 consistently produces crisp details and predictable outputs, helping teams ship fast
-                with fewer iterations.
-              </p>
+              <h2 className="text-xl font-semibold">{t('sections.why.title')}</h2>
+              <p className="mt-2 text-sm text-muted-foreground">{t('sections.why.body')}</p>
             </div>
             <div>
-              <h2 className="text-xl font-semibold">How to Use Seedream 4.0</h2>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Start by uploading a reference image, choose a style preset, then add a concise prompt. Click Generate
-                to create images with Seedream 4.0. You can refine prompts, switch presets or upscale with Seedream 4.0
-                to reach your desired look.
-              </p>
+              <h2 className="text-xl font-semibold">{t('sections.how.title')}</h2>
+              <p className="mt-2 text-sm text-muted-foreground">{t('sections.how.body')}</p>
             </div>
           </div>
         </section>
