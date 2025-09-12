@@ -28,11 +28,12 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata | undefined> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'Metadata' });
+  const tMeta = await getTranslations({ locale, namespace: 'Metadata' });
+  const tHome = await getTranslations({ locale, namespace: 'HomePage' });
 
   return constructMetadata({
-    title: t('title'),
-    description: t('description'),
+    title: `${tHome('seoH1')} | Seeimage AI`,
+    description: tHome('seoIntro') || tMeta('description'),
     canonicalUrl: getUrlWithLocale('', locale),
   });
 }
@@ -49,9 +50,45 @@ export default async function HomePage(props: HomePageProps) {
   return (
     <>
       <div className="flex flex-col">
+        {/* SEO H1 + 说明，确保只有一个 H1 */}
+        <section className="container mx-auto px-4 pt-10 md:pt-12">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-center">{t('seoH1')}</h1>
+          <p className="mt-3 text-base text-muted-foreground max-w-3xl mx-auto text-center">{t('seoIntro')}</p>
+        </section>
+
         {/* Replace hero with dual-column tool design */}
         <section className="container mx-auto px-4 py-8">
           <SeedreamToolSection />
+        </section>
+
+        {/* What / Why / How 文本块，提升关键词密度 */}
+        <section className="container mx-auto px-4 pb-8 md:pb-12">
+          <div className="grid gap-8 md:grid-cols-3">
+            <div>
+              <h2 className="text-xl font-semibold">What is Seedream 4.0?</h2>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Seedream 4.0 is a production‑grade AI image generator. With Seedream 4.0 you can create high‑quality
+                visuals via text‑to‑image and image‑to‑image. Seedream 4.0 supports style presets, seeds, guidance and
+                2x/4x upscaling to deliver professional results.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-xl font-semibold">Why Choose Seedream 4.0?</h2>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Seedream 4.0 focuses on fidelity, control and speed. For marketing banners, product shots and concept
+                art, Seedream 4.0 consistently produces crisp details and predictable outputs, helping teams ship fast
+                with fewer iterations.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-xl font-semibold">How to Use Seedream 4.0</h2>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Start by uploading a reference image, choose a style preset, then add a concise prompt. Click Generate
+                to create images with Seedream 4.0. You can refine prompts, switch presets or upscale with Seedream 4.0
+                to reach your desired look.
+              </p>
+            </div>
+          </div>
         </section>
 
         {/* Curated Tools section */}

@@ -1,15 +1,33 @@
 import { routing } from '@/i18n/routing';
 import type { Locale } from 'next-intl';
 
-const baseUrl =
+// Derive base URL with sensible production safety:
+// - Prefer explicit NEXT_PUBLIC_BASE_URL
+// - Fallback to localhost in dev
+// - If running in production and scheme is http, upgrade to https to avoid mixed-content/insecure URLs
+let derivedBaseUrl =
   process.env.NEXT_PUBLIC_BASE_URL ??
   `http://localhost:${process.env.PORT ?? 3000}`;
+
+if (process.env.NODE_ENV === 'production' && derivedBaseUrl.startsWith('http://')) {
+  try {
+    const u = new URL(derivedBaseUrl);
+    u.protocol = 'https:';
+    derivedBaseUrl = u.toString().replace(/\/$/, '');
+  } catch {
+    // no-op: keep original string if it isn't a valid URL
+  }
+}
 
 /**
  * Get the base URL of the application
  */
 export function getBaseUrl(): string {
-  return baseUrl;
+  if (typeof window !== 'undefined' && window.location?.origin) {
+    // On the client, always trust the current origin
+    return window.location.origin;
+  }
+  return derivedBaseUrl;
 }
 
 /**
@@ -24,8 +42,8 @@ export function shouldAppendLocale(locale?: Locale | null): boolean {
  */
 export function getUrlWithLocale(url: string, locale?: Locale | null): string {
   return shouldAppendLocale(locale)
-    ? `${baseUrl}/${locale}${url}`
-    : `${baseUrl}${url}`;
+    ? `${derivedBaseUrl}/${locale}${url}`
+    : `${derivedBaseUrl}${url}`;
 }
 
 /**

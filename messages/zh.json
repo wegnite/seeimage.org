@@ -754,6 +754,22 @@
   "HomePage": {
     "title": "Seedream 4.0 图像工作室",
     "description": "Seedream 4.0 图片生成器：支持文生图与图生图，提供风格预设与 2x/4x 超分，快速稳定，适合生产使用。",
+    "seoH1": "Seedream 4.0 AI 图片生成器",
+    "seoIntro": "基于 Seedream 4.0 一键生成高质量图片，支持文生图与图生图、风格预设、超分与修复，速度快、质量稳。",
+    "sections": {
+      "what": {
+        "title": "什么是 Seedream 4.0？",
+        "body": "Seedream 4.0 是面向生产的 AI 图片生成器。借助 Seedream 4.0，你可以通过文生图与图生图高质量生成图片；同时支持风格预设、种子、提示强度以及 2x/4x 超分，帮助你稳定产出专业级结果。"
+      },
+      "why": {
+        "title": "为何选择 Seedream 4.0？",
+        "body": "Seedream 4.0 兼顾画质、可控性与速度。无论是营销海报、商品图还是概念设计，Seedream 4.0 都能稳定输出细节清晰、可预测的结果，减少反复迭代，提升交付效率。"
+      },
+      "how": {
+        "title": "如何使用 Seedream 4.0",
+        "body": "先上传参考图，选择一个风格预设，然后输入简洁提示词，点击生成即可使用 Seedream 4.0 产出图片。你也可以继续微调提示词、切换预设或使用 Seedream 4.0 超分功能来获得理想效果。"
+      }
+    },
     "hero": {
       "title": "使用 MkSaaS 轻松构建您的 AI SaaS 产品",
       "description": "MkSaaS 是构建 AI SaaS 的最佳模板，内置 AI、身份验证、全球支付、博客、文档、邮件订阅、SEO、多彩主题、丰富组件等。",
