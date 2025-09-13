@@ -116,6 +116,7 @@ export default async function BlogPostPage(props: BlogPostPageProps) {
                   title={title || 'image for blog post'}
                   loading="eager"
                   fill
+                  sizes="(max-width: 1024px) 100vw, 66vw"
                   className="object-cover"
                 />
               )}
@@ -165,6 +166,7 @@ export default async function BlogPostPage(props: BlogPostPageProps) {
                         alt={`avatar for ${blogAuthor.data.name}`}
                         className="rounded-full object-cover border"
                         fill
+                        sizes="32px"
                       />
                     )}
                   </div>
