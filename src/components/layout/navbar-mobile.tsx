@@ -25,9 +25,15 @@ import {
 import { useTranslations } from 'next-intl';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { RemoveScroll } from 'react-remove-scroll';
+import dynamic from 'next/dynamic';
 import { Skeleton } from '../ui/skeleton';
 import { UserButtonMobile } from './user-button-mobile';
+
+// Defer heavy dependency until mobile menu opens
+const RemoveScroll = dynamic(
+  () => import('react-remove-scroll').then((m) => m.RemoveScroll),
+  { ssr: false }
+);
 
 export function NavbarMobile({
   className,
