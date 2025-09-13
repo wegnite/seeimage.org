@@ -5,19 +5,30 @@ import type { Locale } from 'next-intl';
 // - Prefer explicit NEXT_PUBLIC_BASE_URL
 // - Fallback to localhost in dev
 // - If running in production and scheme is http, upgrade to https to avoid mixed-content/insecure URLs
-let derivedBaseUrl =
-  process.env.NEXT_PUBLIC_BASE_URL ??
-  `http://localhost:${process.env.PORT ?? 3000}`;
+// Public base URL resolution policy (unified for canonical/sitemap/robots)
+// - Prefer explicit NEXT_PUBLIC_BASE_URL
+// - In production, if missing, fallback to brand domain to avoid localhost/workers.dev
+// - In development, fallback to localhost
+const PROD_FALLBACK_BASE = 'https://seeimage.org';
 
-if (process.env.NODE_ENV === 'production' && derivedBaseUrl.startsWith('http://')) {
-  try {
-    const u = new URL(derivedBaseUrl);
-    u.protocol = 'https:';
-    derivedBaseUrl = u.toString().replace(/\/$/, '');
-  } catch {
-    // no-op: keep original string if it isn't a valid URL
+// Compute once at build time to leverage Next's env inlining for NEXT_PUBLIC_*.
+const derivedBaseUrl: string = (() => {
+  let base = process.env.NEXT_PUBLIC_BASE_URL as string | undefined;
+  if (!base) {
+    base = process.env.NODE_ENV === 'production'
+      ? PROD_FALLBACK_BASE
+      : `http://localhost:${process.env.PORT ?? 3000}`;
   }
-}
+  try {
+    const u = new URL(base);
+    if (process.env.NODE_ENV === 'production') {
+      u.protocol = 'https:';
+    }
+    return u.toString().replace(/\/$/, '');
+  } catch {
+    return base!;
+  }
+})();
 
 /**
  * Get the base URL of the application
@@ -31,6 +42,26 @@ export function getBaseUrl(): string {
 }
 
 /**
+ * Ensure URL has a trailing slash in its pathname (keeps query/hash)
+ */
+export function ensureTrailingSlash(url: string): string {
+  try {
+    const u = new URL(url);
+    if (!u.pathname.endsWith('/')) {
+      u.pathname = `${u.pathname}/`;
+    }
+    return u.toString();
+  } catch {
+    // If it's not a full URL, best effort
+    if (url.includes('?')) {
+      const [p, q] = url.split('?');
+      return (p.endsWith('/') ? url : `${p}/?${q}`);
+    }
+    return url.endsWith('/') ? url : `${url}/`;
+  }
+}
+
+/**
  * Check if the locale should be appended to the URL
  */
 export function shouldAppendLocale(locale?: Locale | null): boolean {
@@ -41,9 +72,14 @@ export function shouldAppendLocale(locale?: Locale | null): boolean {
  * Get the URL of the application with the locale appended
  */
 export function getUrlWithLocale(url: string, locale?: Locale | null): string {
-  return shouldAppendLocale(locale)
-    ? `${derivedBaseUrl}/${locale}${url}`
-    : `${derivedBaseUrl}${url}`;
+  const base = derivedBaseUrl;
+  const rawPath = shouldAppendLocale(locale)
+    ? `/${locale}${url || '/'}`
+    : (url || '/');
+  // normalize duplicate slashes in path portion only
+  const normalizedPath = rawPath.replace(/\/+([?#]|$)/, '/$1');
+  const full = new URL(normalizedPath, base).toString();
+  return ensureTrailingSlash(full);
 }
 
 /**
