@@ -1,7 +1,6 @@
 'use client';
 
 import { websiteConfig } from '@/config/website';
-import { Crisp } from 'crisp-sdk-web';
 import { useEffect } from 'react';
 
 /**
@@ -11,23 +10,24 @@ import { useEffect } from 'react';
  */
 const CrispChat = () => {
   useEffect(() => {
-    if (!websiteConfig.features.enableCrispChat) {
-      console.log('Crisp chat is disabled');
-      return;
-    }
+    // Only load if enabled and properly configured
+    if (!websiteConfig.features.enableCrispChat) return;
 
     const websiteId = process.env.NEXT_PUBLIC_CRISP_WEBSITE_ID;
-    if (!websiteId) {
-      console.warn('Crisp website ID is not configured.');
-      return;
-    }
+    if (!websiteId) return;
 
-    try {
-      Crisp.configure(websiteId);
-      console.log('Crisp chat initialized successfully');
-    } catch (error) {
-      console.error('Failed to initialize Crisp chat:', error);
-    }
+    // Dynamically import to keep initial bundle small
+    import('crisp-sdk-web')
+      .then(({ Crisp }) => {
+        try {
+          Crisp.configure(websiteId);
+        } catch (err) {
+          console.error('Failed to initialize Crisp chat:', err);
+        }
+      })
+      .catch((err) => {
+        console.error('Failed to load Crisp SDK:', err);
+      });
   }, []);
 
   return null;

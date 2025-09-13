@@ -48,6 +48,11 @@ export default async function LocaleLayout({
       <head>
         <AffonsoScript />
         <PromotekitScript />
+        {/* Performance hints for analytics */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="" />
+        <link rel="preconnect" href="https://www.google-analytics.com" crossOrigin="" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
       </head>
       <body
         suppressHydrationWarning
