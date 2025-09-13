@@ -24,10 +24,11 @@ export function Logo({ className }: { className?: string }) {
   return (
     <Image
       src={logo}
-      alt="Logo"
-      title="Logo"
+      alt="Seeimage logo"
+      title="Seeimage"
       width={96}
       height={96}
+      sizes="32px"
       className={cn('size-8 rounded-md', className)}
     />
   );
