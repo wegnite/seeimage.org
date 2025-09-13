@@ -57,48 +57,47 @@ export default async function middleware(req: NextRequest) {
     }
   }
 
-  // do not use getSession() here, it will cause error related to edge runtime
-  // const session = await getSession();
-  const { data: session } = await betterFetch<Session>(
-    '/api/auth/get-session',
-    {
-      baseURL: getBaseUrl(),
-      headers: {
-        cookie: req.headers.get('cookie') || '', // Forward the cookies from the request
-      },
-    }
-  );
-  const isLoggedIn = !!session;
-  // console.log('middleware, isLoggedIn', isLoggedIn);
-
   // Get the pathname of the request (e.g. /zh/dashboard to /dashboard)
   const pathnameWithoutLocale = getPathnameWithoutLocale(
     nextUrl.pathname,
     LOCALES
   );
 
-  // If the route can not be accessed by logged in users, redirect if the user is logged in
-  if (isLoggedIn) {
-    const isNotAllowedRoute = routesNotAllowedByLoggedInUsers.some((route) =>
-      new RegExp(`^${route}$`).test(pathnameWithoutLocale)
-    );
-    if (isNotAllowedRoute) {
-      if (process.env.NODE_ENV !== 'production') {
-        console.log(
-          '<< middleware end, not allowed route, already logged in, redirecting to dashboard'
-        );
-      }
-      return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
-    }
-  }
-
+  // Determine if this path requires session check
   const isProtectedRoute = protectedRoutes.some((route) =>
     new RegExp(`^${route}$`).test(pathnameWithoutLocale)
   );
-  // console.log('middleware, isProtectedRoute', isProtectedRoute);
+  const isCandidateNotAllowed = routesNotAllowedByLoggedInUsers.some((route) =>
+    new RegExp(`^${route}$`).test(pathnameWithoutLocale)
+  );
+
+  let isLoggedIn = false;
+  if (isProtectedRoute || isCandidateNotAllowed) {
+    // Only fetch session when necessary to avoid adding latency to all requests
+    const { data: session } = await betterFetch<Session>(
+      '/api/auth/get-session',
+      {
+        baseURL: getBaseUrl(),
+        headers: {
+          cookie: req.headers.get('cookie') || '', // Forward the cookies from the request
+        },
+      }
+    );
+    isLoggedIn = !!session;
+  }
+
+  // If the route can not be accessed by logged in users, redirect if the user is logged in
+  if (isLoggedIn && isCandidateNotAllowed) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.log(
+        '<< middleware end, not allowed route, already logged in, redirecting to dashboard'
+      );
+    }
+    return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+  }
 
   // If the route is a protected route, redirect to login if user is not logged in
-  if (!isLoggedIn && isProtectedRoute) {
+  if (isProtectedRoute && !isLoggedIn) {
     let callbackUrl = nextUrl.pathname;
     if (nextUrl.search) {
       callbackUrl += nextUrl.search;

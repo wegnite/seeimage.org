@@ -83,7 +83,7 @@ export function NavbarMobile({
         {...other}
       >
         {/* navbar left shows logo */}
-        <LocaleLink href={Routes.Root} className="flex items-center gap-2">
+        <LocaleLink prefetch={false} href={Routes.Root} className="flex items-center gap-2">
           <Logo />
           <span className="text-xl font-semibold">{t('Metadata.name')}</span>
         </LocaleLink>
@@ -159,6 +159,7 @@ function MainMobileMenu({ userLoggedIn, onLinkClicked }: MainMobileMenuProps) {
         {userLoggedIn ? null : (
           <div className="w-full flex flex-col gap-4 px-4">
             <LocaleLink
+              prefetch={false}
               href={Routes.Login}
               onClick={onLinkClicked}
               className={cn(
@@ -172,6 +173,7 @@ function MainMobileMenu({ userLoggedIn, onLinkClicked }: MainMobileMenuProps) {
               {t('Common.login')}
             </LocaleLink>
             <LocaleLink
+              prefetch={false}
               href={Routes.Register}
               className={cn(
                 buttonVariants({
@@ -245,6 +247,7 @@ function MainMobileMenu({ userLoggedIn, onLinkClicked }: MainMobileMenuProps) {
                           return (
                             <li key={subItem.title}>
                               <LocaleLink
+                                prefetch={false}
                                 href={subItem.href || '#'}
                                 target={subItem.external ? '_blank' : undefined}
                                 rel={
@@ -322,6 +325,7 @@ function MainMobileMenu({ userLoggedIn, onLinkClicked }: MainMobileMenuProps) {
                   </Collapsible>
                 ) : (
                   <LocaleLink
+                    prefetch={false}
                     href={item.href || '#'}
                     target={item.external ? '_blank' : undefined}
                     rel={item.external ? 'noopener noreferrer' : undefined}

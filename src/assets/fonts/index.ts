@@ -37,7 +37,8 @@ export const fontNotoSans = Noto_Sans({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-noto-sans',
-  weight: ['500', '600', '700'],
+  // Keep only commonly used weights to reduce font data
+  weight: ['400', '700'],
 });
 
 // https://fonts.google.com/noto/specimen/Noto+Serif
@@ -61,5 +62,6 @@ export const fontBricolageGrotesque = Bricolage_Grotesque({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-bricolage-grotesque',
-  weight: ['400', '500', '600', '700'],
+  // Reduce unused weights; add more if needed later
+  weight: ['700'],
 });

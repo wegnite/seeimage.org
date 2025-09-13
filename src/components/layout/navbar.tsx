@@ -71,7 +71,7 @@ export function Navbar({ scroll }: NavBarProps) {
         <nav className="hidden lg:flex">
           {/* logo and name */}
           <div className="flex items-center">
-            <LocaleLink href="/" className="flex items-center space-x-2">
+            <LocaleLink prefetch={false} href="/" className="flex items-center space-x-2">
               <Logo />
               <span className="text-xl font-semibold">
                 {t('Metadata.name')}
@@ -110,6 +110,7 @@ export function Navbar({ scroll }: NavBarProps) {
                               <li key={subIndex}>
                                 <NavigationMenuLink asChild>
                                   <LocaleLink
+                                    prefetch={false}
                                     href={subItem.href || '#'}
                                     target={
                                       subItem.external ? '_blank' : undefined
@@ -199,6 +200,7 @@ export function Navbar({ scroll }: NavBarProps) {
                         className={customNavigationMenuTriggerStyle}
                       >
                         <LocaleLink
+                          prefetch={false}
                           href={item.href || '#'}
                           target={item.external ? '_blank' : undefined}
                           rel={
@@ -237,6 +239,7 @@ export function Navbar({ scroll }: NavBarProps) {
                 </LoginWrapper>
 
                 <LocaleLink
+                  prefetch={false}
                   href={Routes.Register}
                   className={cn(
                     buttonVariants({
