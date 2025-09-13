@@ -26,6 +26,11 @@ export function constructMetadata({
   return {
     title,
     description,
+    // Ensure a Robots meta tag is always present
+    robots: {
+      index: !noIndex,
+      follow: !noIndex,
+    },
     alternates: canonicalUrl
       ? {
           canonical: canonicalUrl,
@@ -54,11 +59,5 @@ export function constructMetadata({
     },
     metadataBase: new URL(getBaseUrl()),
     manifest: `${getBaseUrl()}/manifest.webmanifest`,
-    ...(noIndex && {
-      robots: {
-        index: false,
-        follow: false,
-      },
-    }),
   };
 }

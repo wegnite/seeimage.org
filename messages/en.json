@@ -755,7 +755,7 @@
     "title": "Seedream 4.0 Image Studio",
     "description": "Seedream 4.0 AI image generator for text-to-image and image-to-image with styles, presets, and 2x/4x upscaling.",
     "seoH1": "Seedream 4.0 AI Image Generator",
-    "seoIntro": "Create stunning visuals with Seedream 4.0. Text-to-image and image-to-image with styles, upscaling, and presets—fully optimized for speed and quality.",
+    "seoIntro": "Create stunning visuals with Seedream 4.0. Seedream 4.0 supports text-to-image and image-to-image with styles, upscaling, and presets. Seedream 4.0 is fully optimized for speed and quality.",
     "sections": {
       "what": {
         "title": "What is Seedream 4.0?",
@@ -763,11 +763,11 @@
       },
       "why": {
         "title": "Why Choose Seedream 4.0?",
-        "body": "Seedream 4.0 focuses on fidelity, control and speed. For marketing banners, product shots and concept art, Seedream 4.0 consistently produces crisp details and predictable outputs, helping teams ship fast with fewer iterations."
+        "body": "Seedream 4.0 focuses on fidelity, control and speed. For marketing banners, product shots and concept art, Seedream 4.0 consistently produces crisp details and predictable outputs, helping teams ship fast with fewer iterations. Seedream 4.0 keeps quality stable across styles."
       },
       "how": {
         "title": "How to Use Seedream 4.0",
-        "body": "Start by uploading a reference image, choose a style preset, then add a concise prompt. Click Generate to create images with Seedream 4.0. Refine prompts, switch presets or upscale with Seedream 4.0 to reach your desired look."
+        "body": "Start by uploading a reference image, choose a style preset, then add a concise prompt. Click Generate to create images with Seedream 4.0. Refine prompts, switch presets or upscale with Seedream 4.0 to reach your desired look. Seedream 4.0 makes iteration fast."
       }
     },
     "hero": {

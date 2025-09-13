@@ -85,7 +85,7 @@ export default function BillingCard() {
 
   // Check for payment success and show success message
   useEffect(() => {
-    const sessionId = searchParams.get('session_id');
+    const sessionId = searchParams?.get('session_id');
     if (sessionId && !hasHandledSession.current) {
       hasHandledSession.current = true;
       setTimeout(() => {

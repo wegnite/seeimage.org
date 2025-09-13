@@ -71,7 +71,7 @@ export default function CreditsBalanceCard() {
 
   // Check for payment success and show success message
   useEffect(() => {
-    const sessionId = searchParams.get('credits_session_id');
+    const sessionId = searchParams?.get('credits_session_id');
     if (sessionId && !hasHandledSession.current) {
       hasHandledSession.current = true;
 

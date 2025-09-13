@@ -14,6 +14,7 @@ import { type Locale, NextIntlClientProvider, hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import type { ReactNode } from 'react';
+import type { Metadata } from 'next';
 import { Toaster } from 'sonner';
 import { Providers } from './providers';
 
@@ -73,3 +74,11 @@ export default async function LocaleLayout({
     </html>
   );
 }
+
+// Provide default robots meta for all localized pages
+export const metadata: Metadata = {
+  robots: {
+    index: true,
+    follow: true,
+  },
+};

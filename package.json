@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "sitemaps:generate": "tsx scripts/generate-sitemaps.ts",
-    "prebuild": "pnpm run sitemaps:generate",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
