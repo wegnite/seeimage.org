@@ -9,127 +9,151 @@ import { getServerPublicBaseUrl } from '@/lib/urls/server';
 
 type Href = Parameters<typeof getLocalePathname>[0]['href'];
 
-// Public, non-auth marketing routes to include for each locale
+/**
+ * 静态营销页面路由 - 每个语言环境都会包含这些页面
+ * 包含核心业务页面和AI工具页面，优先级较高
+ */
 const staticRoutes: Href[] = [
-  '/',
-  '/pricing',
-  '/about',
-  '/contact',
-  '/tools',
-  '/waitlist',
-  '/changelog',
-  '/privacy',
-  '/terms',
-  '/cookie',
-  '/ai',
-  '/ai/chat',
-  '/ai/text',
-  '/ai/image',
-  '/ai/video',
-  ...(websiteConfig.blog.enable ? ['/blog'] : []),
-  ...(websiteConfig.docs.enable ? ['/docs'] : []),
+  '/',                    // 首页 - 最高优先级
+  '/pricing',            // 定价页面
+  '/about',              // 关于我们
+  '/contact',            // 联系我们
+  '/tools',              // 工具页面
+  '/waitlist',           // 等待列表
+  '/changelog',          // 更新日志
+  '/privacy',            // 隐私政策
+  '/terms',              // 服务条款
+  '/cookie',             // Cookie政策
+  '/ai',                 // AI工具总览
+  '/ai/chat',            // AI聊天
+  '/ai/text',            // AI文本处理
+  '/ai/image',           // AI图像工具
+  '/ai/image/enhance',   // AI图像增强 - 核心功能
+  '/ai/video',           // AI视频处理
+  ...(websiteConfig.blog.enable ? ['/blog'] : []),  // 博客首页（如果启用）
+  ...(websiteConfig.docs.enable ? ['/docs'] : []),  // 文档首页（如果启用）
 ];
 
 /**
- * Dynamic sitemap powered by content sources and i18n routes
+ * 动态站点地图生成器
+ * 基于内容源和国际化路由自动生成，过滤低价值页面以优化SEO效果
  */
 export const dynamic = 'force-dynamic';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const sitemapList: MetadataRoute.Sitemap = [];
   const resolved = await getServerPublicBaseUrl();
+  // 本地开发环境使用生产域名，确保sitemap URL正确
   const base = /localhost(:\d+)?$/.test(new URL(resolved).host)
     ? 'https://seeimage.org'
     : resolved;
 
-  // Static marketing pages per locale
+  /**
+   * 1. 静态营销页面 - 为每种语言生成核心页面
+   * 优先级：首页=1.0，其他核心页面=0.8
+   */
   sitemapList.push(
     ...staticRoutes.flatMap((route) =>
       routing.locales.map((locale) => ({
         url: getUrl(route, locale, base),
         lastModified: new Date(),
-        priority: route === '/' ? 1 : 0.8,
+        priority: route === '/' ? 1 : 0.8,  // 首页最高优先级
         changeFrequency: 'weekly' as const,
       }))
     )
   );
 
-  // Blog: categories, pagination and posts
+  /**
+   * 2. 博客内容 - 仅在内容充足时包含分类和分页
+   * 优化策略：避免生成低价值的分页页面，优先个人文章页面
+   */
   if (websiteConfig.blog.enable) {
-    // Category listing pages
-    sitemapList.push(
-      ...categorySource.getPages().flatMap((category) =>
-        routing.locales.map((locale) => ({
-          url: getUrl(`/blog/category/${category.slugs[0]}`, locale, base),
-          lastModified: new Date(),
-          priority: 0.7,
-          changeFrequency: 'weekly' as const,
-        }))
-      )
-    );
-
-    // Blog list pagination pages per locale
-    routing.locales.forEach((locale) => {
-      const posts = blogSource.getPages(locale).filter((p) => p.data.published);
-      const totalPages = Math.max(1, Math.ceil(posts.length / websiteConfig.blog.paginationSize));
-      for (let page = 2; page <= totalPages; page++) {
-        sitemapList.push({
-          url: getUrl(`/blog/page/${page}`, locale, base),
-          lastModified: new Date(),
-          priority: 0.6,
-          changeFrequency: 'weekly' as const,
-        });
-      }
-    });
-
-    // Category pagination pages + individual posts
-    routing.locales.forEach((locale) => {
-      const categories = categorySource.getPages(locale);
-      categories.forEach((category) => {
-        const postsInCategory = blogSource
-          .getPages(locale)
-          .filter((p) => p.data.published)
-          .filter((p) => p.data.categories.some((c) => c === category.slugs[0]));
-        const totalPages = Math.max(1, Math.ceil(postsInCategory.length / websiteConfig.blog.paginationSize));
-        for (let page = 2; page <= totalPages; page++) {
-          sitemapList.push({
-            url: getUrl(`/blog/category/${category.slugs[0]}/page/${page}`, locale, base),
+    const allPosts = blogSource.getPages().filter((p) => p.data.published);
+    
+    // 仅在有足够文章时才添加分类页面（≥6篇文章）
+    if (allPosts.length >= 6) {
+      sitemapList.push(
+        ...categorySource.getPages().flatMap((category) =>
+          routing.locales.map((locale) => ({
+            url: getUrl(`/blog/category/${category.slugs[0]}`, locale, base),
             lastModified: new Date(),
-            priority: 0.5,
+            priority: 0.7,  // 分类页面中等优先级
+            changeFrequency: 'weekly' as const,
+          }))
+        )
+      );
+    }
+
+    // 仅在文章很多时才添加分页页面（>12篇），且限制最多5页
+    if (allPosts.length > 12) {
+      routing.locales.forEach((locale) => {
+        const posts = blogSource.getPages(locale).filter((p) => p.data.published);
+        const totalPages = Math.max(1, Math.ceil(posts.length / websiteConfig.blog.paginationSize));
+        for (let page = 2; page <= Math.min(totalPages, 5); page++) { 
+          sitemapList.push({
+            url: getUrl(`/blog/page/${page}`, locale, base),
+            lastModified: new Date(),
+            priority: 0.5,  // 分页页面较低优先级
             changeFrequency: 'weekly' as const,
           });
         }
       });
-    });
+    }
 
-    // Individual posts
+    // 个人文章页面 - 高价值内容，优先级较高
     sitemapList.push(
-      ...blogSource.getPages().flatMap((post) =>
+      ...allPosts.flatMap((post) =>
         routing.locales
           .filter((locale) => post.locale === locale)
           .map((locale) => ({
             url: getUrl(`/blog/${post.slugs.join('/')}`, locale, base),
             lastModified: new Date(),
-            priority: 0.7,
+            priority: 0.8,  // 个人文章页面高优先级
             changeFrequency: 'weekly' as const,
           }))
       )
     );
   }
 
-  // Docs pages
+  // Docs pages (high-value only)
   if (websiteConfig.docs.enable) {
     const docsParams = source.generateParams();
-    sitemapList.push(
-      ...docsParams.flatMap((param) =>
-        routing.locales.map((locale) => ({
-          url: getUrl(`/docs/${param.slug.join('/')}`, locale, base),
-          lastModified: new Date(),
-          priority: 0.6,
-          changeFrequency: 'weekly' as const,
-        }))
-      )
-    );
+    const highValueDocPages = new Set([
+      'ai-image-sharpener',
+      'gemini-ai-photo-prompts', 
+      'gemini-ai-prompts-copy-paste',
+      'what-is-fumadocs',
+      'manual-installation',
+      'internationalization',
+      'search',
+      'theme',
+      'customisation',
+      'markdown'
+    ]);
+    
+    // Filter for high-value docs and remove duplicates
+    const uniqueUrls = new Set<string>();
+    docsParams.forEach((param) => {
+      const slug = param.slug.join('/');
+      const isHighValue = highValueDocPages.has(slug) || 
+                         slug === '' || // root docs page
+                         slug.split('/').some(part => highValueDocPages.has(part));
+      
+      if (isHighValue) {
+        routing.locales.forEach((locale) => {
+          const url = getUrl(`/docs/${slug}`, locale, base);
+          if (!uniqueUrls.has(url)) {
+            uniqueUrls.add(url);
+            sitemapList.push({
+              url,
+              lastModified: new Date(),
+              priority: slug === '' ? 0.8 : 0.7, // Higher priority for docs root
+              changeFrequency: 'weekly' as const,
+            });
+          }
+        });
+      }
+    });
   }
 
   return sitemapList;
@@ -140,14 +164,3 @@ function getUrl(href: Href, locale: Locale, base: string) {
   return ensureTrailingSlash(base + pathname);
 }
 
-// Helper for alternate language entries (not used but handy for future)
-function getEntries(href: Href) {
-  return routing.locales.map((locale) => ({
-    url: getUrl(href, locale, ''),
-    alternates: {
-      languages: Object.fromEntries(
-        routing.locales.map((cur) => [cur, getUrl(href, cur, '')])
-      ),
-    },
-  }));
-}

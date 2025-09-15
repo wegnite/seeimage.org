@@ -1,0 +1,190 @@
+---
+title: AI 图像锐化器
+description: 使用先进的 AI 技术将模糊图像转换为清晰的专业照片
+icon: Sparkles
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Steps } from 'fumadocs-ui/components/steps';
+import { Tabs, Tab } from 'fumadocs-ui/components/tabs';
+import { StrategicInternalLink, RelatedArticles } from '@/components/seo/StrategicInternalLink';
+import { TopicClusterBreadcrumb, TopicClusterNav, documentationBreadcrumbs } from '@/components/seo/TopicClusterBreadcrumb';
+
+<TopicClusterBreadcrumb items={documentationBreadcrumbs['/docs/ai-image-sharpener']} />
+
+# AI 图像锐化器
+
+使用我们轻量、高效的本地图像增强算法，将模糊、低质量的图像转换为更清晰的效果。所有处理均在您的浏览器中完成，无需上传到服务器，零成本、零延迟、零隐私风险。
+
+使用<StrategicInternalLink href="/" priority="high" context="body" keywords={["ai tools", "seimage platform"]}>SeImage 完整 AI 工具套件</StrategicInternalLink>获得专业级照片增强和创意项目支持。
+
+<Callout type="info">
+  全程浏览器本地处理，无需上传。建议使用 JPG/PNG/WEBP（单图建议不超过约 20MP 像素以获得更流畅体验）。
+</Callout>
+
+## 功能特色
+
+### 核心能力
+
+- **一键增强**: 一键点击即可转换模糊图像
+- **多种质量模式**: 选择快速、优质或专业处理模式（不同速度与效果）
+- **批量处理**: 一次上传和增强最多 10 张图像
+- **实时预览**: 即时比较处理前后的效果
+- **高级控制**: 精细调节锐化强度、噪声减少和边缘增强
+
+### 处理模式
+
+<Tabs items={['快速模式', '优质模式', '专业模式']}>
+  <Tab value="快速模式">
+    **快速模式**
+    - 处理时间: 1-3 秒（取决于设备）
+    - 适合社交媒体和快速分享
+    - 基础锐化，自动优化
+  </Tab>
+  <Tab value="优质模式">
+    **优质模式**
+    - 处理时间: 3-8 秒（取决于设备）
+    - 适合内容创作和专业用途
+    - 增强细节恢复，配备噪声减少
+  </Tab>
+  <Tab value="专业模式">
+    **专业模式**
+    - 处理时间: 5-12 秒（取决于设备）
+    - 最适合印刷和高端应用
+    - 最大细节增强，保持边缘清晰
+  </Tab>
+</Tabs>
+
+## 如何使用 AI 图像锐化器
+
+<Steps>
+
+### 上传您的图像
+
+访问<StrategicInternalLink href="/ai/image/enhance" priority="highest" context="body" keywords={["ai image sharpener", "enhance photos"]}>AI 图像锐化器</StrategicInternalLink>页面，通过以下方式选择您的图像（不上传）：
+- 将文件拖放到上传区域
+- 点击上传按钮选择文件
+- 从剪贴板粘贴图像
+
+### 选择处理模式
+
+根据您的需求选择合适的处理模式：
+- **快速模式**: 即时使用的快速增强
+- **优质模式**: 平衡质量和速度
+- **专业模式**: 专业工作的最高质量
+
+### 调整设置（可选）
+
+精细调节增强参数：
+- **锐化强度**: 控制锐化的强度 (0-100%)
+- **噪声减少**: 启用以减少图像噪声和伪影
+- **边缘增强**: 调整边缘锐化 (轻微/中等/强烈)
+
+### 处理和下载
+
+点击"增强图像"开始处理。完成后：
+- 预览增强结果
+- 比较处理前后版本
+- 下载原始质量的改进图像
+- 根据需要保存多种压缩选项
+
+</Steps>
+
+## 使用场景
+
+### 内容创作
+非常适合博主、社交媒体管理员和内容创作者，为他们的帖子和文章提供高质量图像。
+
+### 电子商务
+增强产品照片以显示精细细节和纹理，提高客户参与度和转化率。
+
+### 摄影
+拯救老照片、修复相机抖动，为业余和专业摄影师改善整体图像质量。
+
+### 房地产
+锐化房产照片以突出建筑细节，使房源对潜在买家更具吸引力。
+
+## 技术详情
+
+### 技术说明
+本工具使用浏览器端图像增强算法（如非线性锐化、边缘保留、简单降噪），不依赖云端模型与付费服务。处理结果即时可见，适合大多数常见模糊场景。
+
+### 支持格式
+- **输入**: JPG、PNG、WEBP
+- **输出**: PNG（下载时可选择保存为 PNG）
+- **建议尺寸**: 单图不超过约 20MP 像素以保证流畅体验
+
+### 处理流程
+1. **图像分析**: 本地计算评估图像边缘与纹理信息
+2. **细节提升**: 基于反卷积/反遮罩思路增强高频细节
+3. **降噪处理**: 在需要时进行轻量去噪，避免过度锐化引入伪影
+4. **边缘增强**: 选择性提升边缘与纹理，保持自然效果
+
+## 费用与隐私
+
+- **免费使用**: 全部在浏览器本地执行，无需服务器与积分。
+- **隐私友好**: 图像不上传，处理仅在本地完成。
+
+## 常见问题
+
+### AI 图像锐化如何工作？
+本地算法分析图像的边缘与高频信息，并智能增强细节同时保持自然外观。相比传统锐化，增加了边缘权重控制与降噪策略，尽量减少不自然伪影。
+
+### 不同处理模式有什么区别？
+- **快速模式**: 适合网页使用的快速增强
+- **优质模式**: 中等处理时间的更好细节恢复
+- **专业模式**: 专业应用的最高质量增强
+
+### 我可以同时增强多张图像吗？
+可以！一次选择最多 10 张图片，本地批量处理。
+
+### 有文件大小或分辨率限制吗？
+为了保证流畅，请尽量控制单图分辨率在约 20MP 像素以内；支持 JPG/PNG/WEBP。
+
+### 处理后的图像会被保存多久？
+不会上传或保存在服务器。您可以在处理完成后直接下载到本地。若开启浏览器本地保存（后续提供可选项），可在本地缓存中保留一定时间。
+
+### 是否需要注册或付费？
+不需要。完全免费、免注册、免上传。
+
+## 最佳实践
+
+### 获得最佳效果
+- 尽可能使用光线良好的图像
+- 避免极度像素化或严重压缩的图像
+- 批量处理时，将相似的图像类型分组
+- 对于用于印刷的图像使用专业模式
+
+### 常见问题
+- **过度锐化**: 如果结果看起来不自然，减少锐化强度
+- **噪声放大**: 对有噪声的输入图像启用噪声减少
+- **处理失败**: 确保图像符合大小和格式要求
+
+---
+
+## 相关 AI 工具与资源
+
+<div className="grid lg:grid-cols-3 gap-6">
+  <div className="lg:col-span-2">
+    <RelatedArticles currentPage="/docs/ai-image-sharpener" title="完整您的 AI 工作流程" />
+  </div>
+  <div>
+    <TopicClusterNav currentPage="/docs/ai-image-sharpener" />
+  </div>
+</div>
+
+### 战略性 AI 增强工作流程
+
+使用我们相互连接的 AI 工具转换您的创作流程：
+
+1. **生成**：使用<StrategicInternalLink href="/docs/gemini-ai-photo-prompts" priority="high" context="body" keywords={["gemini ai prompts", "ai photo generation"]}>高级 Gemini AI 提示词</StrategicInternalLink>创建图像
+2. **增强**：使用我们的<StrategicInternalLink href="/ai/image/enhance" priority="highest" context="cta" keywords={["ai image sharpener", "enhance photos"]}>AI 图像锐化工具</StrategicInternalLink>完善质量
+3. **规模化**：访问<StrategicInternalLink href="/docs/gemini-ai-prompts-copy-paste" priority="medium" context="body" keywords={["copy paste prompts", "viral ai prompts"]}>100+ 即用型提示词模板</StrategicInternalLink>进行快速内容创作
+
+---
+
+<div className="text-center space-x-4">
+  <StrategicInternalLink href="/" priority="high" context="footer" keywords={["ai tools", "seimage platform"]} className="font-semibold">🏠 探索所有 AI 工具</StrategicInternalLink> | 
+  <StrategicInternalLink href="/docs" priority="medium" context="footer" keywords={["documentation", "tutorials"]} className="font-medium">📚 浏览文档</StrategicInternalLink> | 
+  <StrategicInternalLink href="/pricing" priority="low" context="footer" keywords={["pricing", "plans"]} className="text-muted-foreground">💡 查看价格</StrategicInternalLink>
+</div>

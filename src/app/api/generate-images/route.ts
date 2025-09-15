@@ -60,6 +60,12 @@ const withTimeout = <T>(
 };
 
 export async function POST(req: NextRequest) {
+  if (process.env.ENABLE_IMAGE_GENERATION !== 'true') {
+    return NextResponse.json(
+      { error: 'Image generation is disabled in this deployment.' },
+      { status: 403 }
+    );
+  }
   const requestId = Math.random().toString(36).substring(7);
   const { prompt, provider, modelId } =
     (await req.json()) as GenerateImageRequest;

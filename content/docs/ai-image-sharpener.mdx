@@ -1,0 +1,194 @@
+---
+title: AI Image Sharpener
+description: Transform blurry images into crystal clear photos using advanced AI technology
+icon: Sparkles
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Steps } from 'fumadocs-ui/components/steps';
+import { Tabs, Tab } from 'fumadocs-ui/components/tabs';
+import { StrategicInternalLink, RelatedArticles } from '@/components/seo/StrategicInternalLink';
+import { TopicClusterBreadcrumb, TopicClusterNav, documentationBreadcrumbs } from '@/components/seo/TopicClusterBreadcrumb';
+
+<TopicClusterBreadcrumb items={documentationBreadcrumbs['/docs/ai-image-sharpener']} />
+
+# AI Image Sharpener
+
+Turn blurry images into clearer results using lightweight, in‑browser enhancement algorithms. Everything runs locally in your browser — no uploads, zero server cost, and privacy by default.
+
+<StrategicInternalLink href="/" priority="high" context="body" keywords={["ai tools", "seimage platform"]}>
+  Discover our complete AI-powered toolkit
+</StrategicInternalLink>
+
+for professional photo enhancement and creative projects.
+
+<Callout type="info">
+  100% client‑side — no uploads. Works best with JPG/PNG/WEBP (keep single images under ~20MP for smooth performance).
+</Callout>
+
+## Features
+
+### Core Capabilities
+
+- **One-Click Enhancement**: Transform blurry images with a single click
+- **Multiple Quality Modes**: Fast / Quality / Pro (trade off speed vs detail)
+- **Batch Processing**: Upload and enhance up to 10 images simultaneously
+- **Real-Time Preview**: Compare before and after results instantly
+- **Advanced Controls**: Fine-tune sharpening strength, noise reduction, and edge enhancement
+
+### Processing Modes
+
+<Tabs items={['Fast Mode', 'Quality Mode', 'Professional Mode']}>
+  <Tab value="Fast Mode">
+    **Fast Mode**
+    - Processing time: ~1-3s (device dependent)
+    - Perfect for social media and quick sharing
+    - Basic sharpening with automatic optimization
+  </Tab>
+  <Tab value="Quality Mode">
+    **Quality Mode**
+    - Processing time: ~3-8s (device dependent)
+    - Ideal for content creation and professional use
+    - Enhanced detail recovery with noise reduction
+  </Tab>
+  <Tab value="Professional Mode">
+    **Professional Mode**
+    - Processing time: ~5-12s (device dependent)
+    - Best for print and high-end applications
+    - Maximum detail enhancement with edge preservation
+  </Tab>
+</Tabs>
+
+## How to Use AI Image Sharpener
+
+<Steps>
+
+### Upload Your Image
+
+Navigate to the <StrategicInternalLink href="/ai/image/enhance" priority="highest" context="body" keywords={["ai image sharpener", "enhance photos"]}>AI Image Sharpener</StrategicInternalLink> page and select your images (no uploads):
+- Dragging and dropping files into the upload area
+- Clicking the upload button to select files
+- Pasting images from clipboard
+
+### Select Processing Mode
+
+Choose the appropriate processing mode based on your needs:
+- **Fast Mode**: Quick enhancement for immediate use
+- **Quality Mode**: Balanced quality and speed
+- **Professional Mode**: Maximum quality for professional work
+
+### Adjust Settings (Optional)
+
+Fine-tune the enhancement parameters:
+- **Sharpening Strength**: Control the intensity of sharpening (0-100%)
+- **Noise Reduction**: Enable to reduce image noise and artifacts
+- **Edge Enhancement**: Adjust edge sharpening (Light/Medium/Strong)
+
+### Process and Download
+
+Click "Enhance Image" to start processing. Once complete:
+- Preview the enhanced result
+- Compare before and after versions
+- Download the improved image in original quality
+- Save multiple compression options if needed
+
+</Steps>
+
+## Use Cases
+
+### Content Creation
+Perfect for bloggers, social media managers, and content creators who need high-quality images for their posts and articles.
+
+### E-commerce
+Enhance product photos to show fine details and textures, improving customer engagement and conversion rates.
+
+### Photography
+Rescue old photos, fix camera shake, and improve overall image quality for both amateur and professional photographers.
+
+### Real Estate
+Sharpen property photos to highlight architectural details and make listings more attractive to potential buyers.
+
+## Technical Details
+
+### Processing
+Runs entirely in the browser using local enhancement techniques (non‑server, non‑cloud). Combines unsharp masking, edge‑aware adjustments, and optional lightweight denoising to reduce artifacts and keep results natural.
+
+### Supported Formats
+- **Input**: JPG, PNG, WEBP
+- **Output**: PNG (downloadable)
+- **Recommended size**: Keep single images under ~20MP pixels for smoother UX
+
+### Processing Pipeline
+1. **Analysis**: Local assessment of edges and textures
+2. **Detail Boost**: Enhance high‑frequency details via unsharp masking
+3. **Noise Reduction**: Optional light denoising to avoid harsh artifacts
+4. **Edge Enhancement**: Edge‑weighted sharpening for natural‑looking results
+
+## Cost & Privacy
+
+- **Free**: 100% client‑side — no server usage, no credits.
+- **Private**: Images never leave your device.
+
+## Frequently Asked Questions
+
+### How does this sharpening work?
+Local algorithms analyze edges and high‑frequency details and enhance them while keeping results natural. Compared to naive sharpening, it adds edge weighting and optional denoising to reduce artifacts.
+
+### What's the difference between the processing modes?
+- **Fast Mode**: Quick enhancement suitable for web use
+- **Quality Mode**: Better detail recovery with moderate processing time
+- **Professional Mode**: Maximum quality enhancement for professional applications
+
+### Can I enhance multiple images at once?
+Yes. Select up to 10 images and they’ll be processed locally in sequence.
+
+### Are there any file size limits?
+For smooth performance, keep single images under ~20MP pixels. JPG/PNG/WEBP are supported.
+
+### Are images stored anywhere?
+No server storage. Download results directly. A future optional browser‑local cache may be offered.
+
+### Do I need an account or subscription?
+No. It’s free, no account required.
+
+## Best Practices
+
+### For Best Results
+- Use images with good lighting when possible
+- Avoid extremely pixelated or heavily compressed images
+- For batch processing, group similar image types together
+- Use Professional Mode for images intended for print
+
+### Common Issues
+- **Over-sharpening**: Reduce sharpening strength if results look unnatural
+- **Noise amplification**: Enable noise reduction for noisy input images
+- **Processing failures**: Ensure images meet size and format requirements
+
+---
+
+## Related AI Tools & Resources
+
+<div className="grid lg:grid-cols-3 gap-6">
+  <div className="lg:col-span-2">
+    <RelatedArticles currentPage="/docs/ai-image-sharpener" title="Complete Your AI Workflow" />
+  </div>
+  <div>
+    <TopicClusterNav currentPage="/docs/ai-image-sharpener" />
+  </div>
+</div>
+
+### Strategic AI Enhancement Workflow
+
+Transform your creative process with our interconnected AI tools:
+
+1. **Generate**: Create images with <StrategicInternalLink href="/docs/gemini-ai-photo-prompts" priority="high" context="body" keywords={["gemini ai prompts", "ai photo generation"]}>advanced Gemini AI prompts</StrategicInternalLink>
+2. **Enhance**: Perfect quality using our <StrategicInternalLink href="/ai/image/enhance" priority="highest" context="cta" keywords={["ai image sharpener", "enhance photos"]}>AI Image Sharpener tool</StrategicInternalLink>
+3. **Scale**: Access <StrategicInternalLink href="/docs/gemini-ai-prompts-copy-paste" priority="medium" context="body" keywords={["copy paste prompts", "viral ai prompts"]}>100+ ready-to-use prompt templates</StrategicInternalLink> for rapid content creation
+
+---
+
+<div className="text-center space-x-4">
+  <StrategicInternalLink href="/" priority="high" context="footer" keywords={["ai tools", "seimage platform"]} className="font-semibold">🏠 Explore All AI Tools</StrategicInternalLink> | 
+  <StrategicInternalLink href="/docs" priority="medium" context="footer" keywords={["documentation", "tutorials"]} className="font-medium">📚 Browse Documentation</StrategicInternalLink> | 
+  <StrategicInternalLink href="/pricing" priority="low" context="footer" keywords={["pricing", "plans"]} className="text-muted-foreground">💡 See Pricing</StrategicInternalLink>
+</div>

@@ -28,7 +28,6 @@ const SeedreamToolSection = dynamic(
       (m) => m.SeedreamToolSection
     ),
   {
-    ssr: false,
     loading: () => (
       <section className="container mx-auto px-4 py-8">
         <div className="h-[560px] w-full animate-pulse rounded-xl bg-muted/40" />

@@ -20,6 +20,12 @@
     "search",
     "components",
     "mdx",
-    "layouts"
+    "layouts",
+    "---AI 功能---",
+    "ai-image-sharpener",
+    "gemini-ai-photo-prompts",
+    "gemini-ai-prompts-copy-paste",
+    "---营销---",
+    "marketing"
   ]
 }

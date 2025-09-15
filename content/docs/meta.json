@@ -21,6 +21,10 @@
     "components",
     "mdx",
     "layouts",
+    "---AI Features---",
+    "ai-image-sharpener",
+    "gemini-ai-photo-prompts",
+    "gemini-ai-prompts-copy-paste",
     "---Marketing---",
     "marketing"
   ]
